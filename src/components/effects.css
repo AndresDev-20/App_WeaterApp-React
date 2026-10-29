@@ -1,0 +1,162 @@
+.effects {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- Sol ---------- */
+.sun {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  display: grid;
+  place-items: center;
+}
+.sun__core {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff7d1 0%, #ffd56b 45%, rgba(255, 170, 40, 0) 72%);
+  filter: blur(2px);
+  animation: sunPulse 6s ease-in-out infinite;
+}
+.sun__rays {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255, 230, 150, 0.22) 0deg 6deg, transparent 6deg 18deg);
+  mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%);
+  -webkit-mask: radial-gradient(circle, transparent 18%, #000 30%, transparent 70%);
+  animation: spin 60s linear infinite;
+}
+@keyframes sunPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.12); opacity: 1; }
+}
+
+/* ---------- Noche ---------- */
+.moon {
+  position: absolute;
+  top: 7%;
+  right: 9%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  box-shadow: inset -22px 10px 0 0 #f4f1e6;
+  filter: drop-shadow(0 0 22px rgba(244, 241, 230, 0.55));
+  transform: rotate(-20deg);
+  animation: floatSoft 8s ease-in-out infinite;
+}
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 1px rgba(255, 255, 255, 0.8);
+  animation: twinkle ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ---------- Nubes ---------- */
+.cloud {
+  position: absolute;
+  left: 0;
+  width: 260px;
+  height: 80px;
+  border-radius: 80px;
+  background: rgba(255, 255, 255, var(--opacity));
+  filter: blur(6px);
+  animation: drift linear infinite;
+}
+.cloud::before,
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud::before { width: 120px; height: 120px; top: -60px; left: 40px; }
+.cloud::after { width: 90px; height: 90px; top: -40px; left: 130px; }
+@keyframes drift {
+  from { transform: translateX(-320px) scale(var(--scale)); }
+  to { transform: translateX(calc(100vw + 320px)) scale(var(--scale)); }
+}
+.effects--rain .cloud,
+.effects--storm .cloud { background: rgba(90, 100, 120, var(--opacity)); }
+
+/* ---------- Lluvia ---------- */
+.drop {
+  position: absolute;
+  top: -12%;
+  width: 2px;
+  height: 90px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(200, 225, 255, 0.85));
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translate3d(-60px, 115vh, 0); }
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  animation: lightning 7s infinite;
+}
+@keyframes lightning {
+  0%, 89%, 100% { opacity: 0; }
+  90% { opacity: 0.55; }
+  91% { opacity: 0.05; }
+  92.5% { opacity: 0.4; }
+  94% { opacity: 0; }
+}
+
+/* ---------- Nieve ---------- */
+.flake {
+  position: absolute;
+  top: -5%;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  animation: snow linear infinite;
+}
+@keyframes snow {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(25px, 28vh, 0); }
+  50% { transform: translate3d(-15px, 55vh, 0); }
+  75% { transform: translate3d(20px, 82vh, 0); }
+  100% { transform: translate3d(0, 110vh, 0); }
+}
+
+/* ---------- Niebla ---------- */
+.fog {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  height: 40%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35), transparent 65%);
+  filter: blur(20px);
+  animation: fogMove ease-in-out infinite alternate;
+}
+.fog--1 { top: 10%; animation-duration: 22s; }
+.fog--2 { top: 40%; animation-duration: 30s; animation-direction: alternate-reverse; }
+.fog--3 { top: 68%; animation-duration: 26s; }
+@keyframes fogMove {
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
+}
+
+@media (max-width: 600px) {
+  .sun { width: 300px; height: 300px; top: -100px; right: -100px; }
+  .moon { width: 64px; height: 64px; box-shadow: inset -16px 8px 0 0 #f4f1e6; }
+  .cloud { width: 180px; height: 56px; }
+}

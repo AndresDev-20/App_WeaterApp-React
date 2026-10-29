@@ -1,12 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Roboto:wght@300;400;500;700&display=swap');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 	margin: 0;
-	font-family: "Roboto", sans-serif;
-	font-weight: 600;
-	font-style: normal;
-  
+	padding: 0;
 }
+
+:root {
+	--text: #fff;
+	--text-soft: rgba(255, 255, 255, 0.75);
+	--glass: rgba(255, 255, 255, 0.12);
+	--glass-strong: rgba(255, 255, 255, 0.18);
+	--glass-border: rgba(255, 255, 255, 0.28);
+	--accent: #ffc93c;
+	--radius: 28px;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	min-height: 100dvh;
+	font-family: "Roboto", system-ui, sans-serif;
+	font-weight: 400;
+	color: var(--text);
+	background: #0d1b2a;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+
 img {
+	display: block;
 	width: 100%;
 	object-fit: contain;
+}
+
+button,
+input {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	cursor: pointer;
+	border: none;
+	background: none;
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* ---------- Animaciones compartidas ---------- */
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes fadeUp {
+	from { opacity: 0; transform: translateY(24px) scale(0.98); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes spin {
+	to { transform: rotate(360deg); }
+}
+@keyframes floatSoft {
+	0%, 100% { translate: 0 0; }
+	50% { translate: 0 -10px; }
+}
+@keyframes shimmer {
+	to { background-position: 300% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+	.effects {
+		display: none;
+	}
 }
